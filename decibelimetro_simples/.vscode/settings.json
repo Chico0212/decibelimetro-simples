@@ -38,6 +38,8 @@
     "raspberry-pi-pico.ninjaPath": "${HOME}/.pico-sdk/ninja/v1.12.1/ninja",
     "files.associations": {
         "stdlib.h": "c",
-        "microphone_dma.h": "c"
-    }
+        "microphone_dma.h": "c",
+        "decibelimetro.h": "c"
+    },
+    "C_Cpp.dimInactiveRegions": true
 }

@@ -1,6 +1,5 @@
 #include <stdio.h>
-#include "inc/button.h"
-#include "inc/microphone_dma.h"
+#include "inc/decibelimetro.h"
 #include "pico/stdlib.h"
 
 
@@ -10,7 +9,9 @@ int main()
     stdio_init_all();
 
     while (true) {
-        printf("Hello, world!\n");
-        sleep_ms(1000);
+        for (int col = 0; col < 5; ++col) {
+            acende_coluna(col);
+            sleep_ms(500);
+        }
     }
 }

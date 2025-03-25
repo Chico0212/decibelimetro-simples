@@ -22,6 +22,8 @@ endfunction()
 # Adicionando bibliotecas
 add_pico_library(button)
 add_pico_library(microphone_dma)
+add_pico_library(decibelimetro)
+# add_pico_library(led_matrix)
 
 # Executável principal
 add_executable(decibelimetro_simples decibelimetro_simples.c)
@@ -37,10 +39,12 @@ pico_enable_stdio_usb(decibelimetro_simples 1)
 # Vincula bibliotecas ao executável
 target_link_libraries(decibelimetro_simples
     button
-    microphone_dma
+    decibelimetro
+    # led_matrix
     pico_stdlib
     hardware_pio
-)
+    microphone_dma
+    )
 
 # Gera arquivos adicionais (UF2, etc)
 pico_add_extra_outputs(decibelimetro_simples)
