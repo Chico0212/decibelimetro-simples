@@ -1,62 +1,46 @@
-# Generated Cmake Pico project file
-
 cmake_minimum_required(VERSION 3.13)
 
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-# Initialise pico_sdk from installed location
-# (note this can come from environment, CMake cache etc)
-
-# == DO NOT EDIT THE FOLLOWING LINES for the Raspberry Pi Pico VS Code Extension to work ==
-if(WIN32)
-    set(USERHOME $ENV{USERPROFILE})
-else()
-    set(USERHOME $ENV{HOME})
-endif()
-set(sdkVersion 2.1.1)
-set(toolchainVersion 14_2_Rel1)
-set(picotoolVersion 2.1.1)
-set(picoVscode ${USERHOME}/.pico-sdk/cmake/pico-vscode.cmake)
-if (EXISTS ${picoVscode})
-    include(${picoVscode})
-endif()
-# ====================================================================================
-set(PICO_BOARD pico_w CACHE STRING "Board type")
-
-# Pull in Raspberry Pi Pico SDK (must be before project)
+# Inicializa o SDK do Pico
 include(pico_sdk_import.cmake)
 
 project(decibelimetro_simples C CXX ASM)
 
-# Initialise the Raspberry Pi Pico SDK
 pico_sdk_init()
 
-# Add executable. Default name is the project name, version 0.1
+# Função para adicionar bibliotecas de forma simplificada
+function(add_pico_library LIB_NAME)
+    add_library(${LIB_NAME} src/${LIB_NAME}.c)
+    target_include_directories(${LIB_NAME} PUBLIC ${CMAKE_CURRENT_LIST_DIR}/inc)
+    target_link_libraries(${LIB_NAME} PRIVATE pico_stdlib hardware_pio hardware_adc hardware_dma)  # Adiciona suporte ao ADC
+endfunction()
 
-add_executable(decibelimetro_simples decibelimetro_simples.c )
 
+# Adicionando bibliotecas
+add_pico_library(button)
+add_pico_library(microphone_dma)
+
+# Executável principal
+add_executable(decibelimetro_simples decibelimetro_simples.c)
+
+# Configurações do projeto
 pico_set_program_name(decibelimetro_simples "decibelimetro_simples")
 pico_set_program_version(decibelimetro_simples "0.1")
 
-# Modify the below lines to enable/disable output over UART/USB
+# Habilita stdio
 pico_enable_stdio_uart(decibelimetro_simples 1)
-pico_enable_stdio_usb(decibelimetro_simples 0)
+pico_enable_stdio_usb(decibelimetro_simples 1)
 
-# Add the standard library to the build
+# Vincula bibliotecas ao executável
 target_link_libraries(decibelimetro_simples
-        pico_stdlib)
-
-# Add the standard include files to the build
-target_include_directories(decibelimetro_simples PRIVATE
-        ${CMAKE_CURRENT_LIST_DIR}
+    button
+    microphone_dma
+    pico_stdlib
+    hardware_pio
 )
 
-# Add any user requested libraries
-target_link_libraries(decibelimetro_simples 
-        
-        )
-
+# Gera arquivos adicionais (UF2, etc)
 pico_add_extra_outputs(decibelimetro_simples)
-

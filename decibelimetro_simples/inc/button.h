@@ -8,6 +8,7 @@
  *
  * Baseada no fork de https://github.com/jkroso/pico-button.c.
  *
+*/
 
 #ifndef PICO_BUTTON_H
 #define PICO_BUTTON_H
@@ -17,7 +18,6 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-*/
 
 #define DEBOUNCE_US 200
 
@@ -48,4 +48,4 @@ button_t * create_button(int pin, void (*onchange)(button_t *));
 }
 #endif
 
-//#endif // PICO_BUTTON_H
+#endif // PICO_BUTTON_H
