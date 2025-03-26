@@ -33,8 +33,8 @@ pico_set_program_name(decibelimetro_simples "decibelimetro_simples")
 pico_set_program_version(decibelimetro_simples "0.1")
 
 # Habilita stdio
-pico_enable_stdio_uart(decibelimetro_simples 1)
-pico_enable_stdio_usb(decibelimetro_simples 0)
+pico_enable_stdio_uart(decibelimetro_simples 0)
+pico_enable_stdio_usb(decibelimetro_simples 1)
 
 # Vincula bibliotecas ao executável
 target_link_libraries(decibelimetro_simples

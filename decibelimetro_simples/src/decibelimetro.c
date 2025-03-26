@@ -33,8 +33,6 @@ void acende_coluna(int col) {
 void decibelimetro(float calib) {
     uint8_t intensidade = get_intensity(calib);
 
-    printf("intensidade: %d\n", intensidade);
-
     guarda_intensidades(intensidade);
 
     for (int i = 0; i < 5; ++i) {

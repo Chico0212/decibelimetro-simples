@@ -3,6 +3,7 @@
 
 #include "microphone_dma.h"
 #include "neopixel.h"
+#include <stdio.h>
 
 extern int intensidades[5];
 
