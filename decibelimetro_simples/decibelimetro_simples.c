@@ -4,12 +4,11 @@
 #include <math.h>
 
 
-volatile static float smoothed_mag = 0.0f;
 
-float get_calib() {
+float get_calib(float alpha) {
     sample_mic();
 
-    float alpha = 1.f;
+    static float smoothed_mag = 0.0f;
 
     // Calcula o valor RMS (potência média) das amostras
     float raw_rms = mic_power();
@@ -37,8 +36,8 @@ int main()
     npClear();
 
     while (true) {
-        decibelimetro(get_calib());
-        sleep_ms(10);
         npClear();
+        decibelimetro(get_calib(1));
+        sleep_ms(250);
     }
 }
