@@ -40,7 +40,9 @@
         "stdlib.h": "c",
         "microphone_dma.h": "c",
         "decibelimetro.h": "c",
-        "neopixel.h": "c"
+        "neopixel.h": "c",
+        "ssd1306.h": "c",
+        "ssd1306_conf.h": "c"
     },
     "C_Cpp.dimInactiveRegions": true
 }

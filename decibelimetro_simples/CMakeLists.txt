@@ -15,7 +15,7 @@ pico_sdk_init()
 function(add_pico_library LIB_NAME)
     add_library(${LIB_NAME} src/${LIB_NAME}.c)
     target_include_directories(${LIB_NAME} PUBLIC ${CMAKE_CURRENT_LIST_DIR}/inc)
-    target_link_libraries(${LIB_NAME} PRIVATE pico_stdlib hardware_pio hardware_adc hardware_dma)  # Adiciona suporte ao ADC
+    target_link_libraries(${LIB_NAME} PRIVATE pico_stdlib hardware_pio hardware_adc hardware_dma hardware_i2c)  # Adiciona suporte ao ADC
 endfunction()
 
 
@@ -24,6 +24,8 @@ add_pico_library(button)
 add_pico_library(microphone_dma)
 add_pico_library(decibelimetro)
 add_pico_library(neopixel)
+add_pico_library(ssd1306_fonts)
+add_pico_library(ssd1306)
 
 # Executável principal
 add_executable(decibelimetro_simples decibelimetro_simples.c)
@@ -44,6 +46,8 @@ target_link_libraries(decibelimetro_simples
     pico_stdlib
     hardware_pio
     microphone_dma
+    ssd1306_fonts
+    ssd1306
     )
 
 # Gera arquivos adicionais (UF2, etc)
