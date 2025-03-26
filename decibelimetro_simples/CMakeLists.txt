@@ -23,7 +23,7 @@ endfunction()
 add_pico_library(button)
 add_pico_library(microphone_dma)
 add_pico_library(decibelimetro)
-# add_pico_library(led_matrix)
+add_pico_library(neopixel)
 
 # Executável principal
 add_executable(decibelimetro_simples decibelimetro_simples.c)
@@ -34,13 +34,13 @@ pico_set_program_version(decibelimetro_simples "0.1")
 
 # Habilita stdio
 pico_enable_stdio_uart(decibelimetro_simples 1)
-pico_enable_stdio_usb(decibelimetro_simples 1)
+pico_enable_stdio_usb(decibelimetro_simples 0)
 
 # Vincula bibliotecas ao executável
 target_link_libraries(decibelimetro_simples
     button
     decibelimetro
-    # led_matrix
+    neopixel
     pico_stdlib
     hardware_pio
     microphone_dma
