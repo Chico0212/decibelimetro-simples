@@ -15,16 +15,17 @@ void guarda_intensidades(uint8_t intensidade) {
 }
 
 void acende_coluna(int col) {
-    if (intensidades[col] >= 0)
-        acende_led_coordenada(col, 4, 0, 100, 0);
-    if (intensidades[col] >= 1)
-        acende_led_coordenada(col, 3, 0, 100, 0);
-    if (intensidades[col] >= 2)
-        acende_led_coordenada(col, 2, 50, 50, 0);
-    if (intensidades[col] >= 3)
-        acende_led_coordenada(col, 1, 80, 20, 0);
-    if (intensidades[col] >= 4)
-        acende_led_coordenada(col, 0, 100, 0, 0);
+    if (intensidades[col] >= 0)  // Verde
+        acende_led_coordenada(col, 4, 0, 255, 0);
+    if (intensidades[col] >= 1)  // Verde
+        acende_led_coordenada(col, 3, 0, 255, 0);
+    if (intensidades[col] >= 2)  // Amarelo
+        acende_led_coordenada(col, 2, 255, 255, 0);
+    if (intensidades[col] >= 3)  // Laranja
+        acende_led_coordenada(col, 1, 255, 165, 0);
+    if (intensidades[col] >= 4)  // Vermelho
+        acende_led_coordenada(col, 0, 255, 0, 0);
+
 
     npWrite();
 }

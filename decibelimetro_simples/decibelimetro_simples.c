@@ -33,21 +33,8 @@ int main()
 
     npClear();
 
-    // for (int i = 4; i >= 0; i--)
-    // {
-    //     for (size_t j = 0; j < 5; j++)
-    //     {
-    //         npSetLED(getIndex(j, i), 1, 1, 1);
-
-    //         npWrite();
-
-    //         sleep_ms(250);
-    //     }
-        
-    // }
-
     while (true) {
-        decibelimetro(get_calib());
+        decibelimetro(1);
         sleep_ms(500);
     }
 }
