@@ -7,12 +7,15 @@
 #include "ssd1306_fonts.h"
 
 // ------------------ Variáveis globais ------------------
-float presets[] = {0.25f, 0.5f, 0.75f, 1.f};
-int preset_idx = 1;
+float sensibilidades[] = {0.5f, 1.0f, 1.5f, 2.0f};
+int sens_idx = 1;
+float sensibilidade = 1.0f;
 bool sistema_ativo = true;
+bool mostrar_status_reativado = false;
+
 
 // fator de calibracao do microfone
-volatile float alpha = 0.5f;
+const float alpha = 0.5f; //talvez seja interessante mudar para 0.2
 
 void update_screen(const char *format, ...) {
     char buffer[64];  // Ajuste o tamanho conforme necessário
@@ -21,7 +24,8 @@ void update_screen(const char *format, ...) {
     va_start(args, format);
     vsnprintf(buffer, sizeof(buffer), format, args);
     va_end(args);
-
+    ssd1306_Fill(Black); 
+    
     ssd1306_DrawRectangle(0, 0, 127, 63, White);   // Desenha um retângulo na tela
     ssd1306_SetCursor(12, 28);                     // Define a posição do cursor
     ssd1306_WriteString(buffer, Font_7x10, White); // Escreve o texto formatado
@@ -41,10 +45,10 @@ void onchange_botao_direito(button_t *b) {
             printf("Sistema pausado.\n");
             update_screen("Sistema pausado");
         } else {
-            preset_idx = (preset_idx + 1) % 4;
-            alpha = presets[preset_idx];
-            printf("smoothed_mag ajustado: %.2f\n", alpha);
-            update_screen("Alpha: %.2f%%", alpha * 100.f);
+            sens_idx = (sens_idx + 1) % 4;
+            sensibilidade = sensibilidades[sens_idx];
+            printf("Sensibilidade ajustada: %.2f\n", sensibilidade);
+            update_screen("Sensi: %.2f%%", sensibilidade * 100.f);
         }
     }
 }
@@ -60,6 +64,7 @@ void onchange_botao_esquerdo(button_t *b) {
 
         if (dt >= 2000000) {
             sistema_ativo = true;
+            mostrar_status_reativado = true;
             printf("Sistema reativado.\n");
             update_screen("Sistema reativado");
         }
@@ -104,13 +109,19 @@ int main()
     ssd1306_Init();             // Initialize the display
     ssd1306_Fill(Black);        // Fill the display with black color
 
-    update_screen("Alpha: %.2f%%", alpha * 100.f);      
+    update_screen("Sensi: %.2f%%", alpha * 100.f);      
 
     while (true) {
+        if (sistema_ativo && mostrar_status_reativado) {
+            update_screen("Sistema ligado");
+            sleep_ms(1500);
+            update_screen("Sensi: %.2f%%", sensibilidade * 100.f);
+            mostrar_status_reativado = false;
+        }
 
         while (sistema_ativo) {
             npClear();
-            decibelimetro(get_calib(alpha));
+            decibelimetro(get_calib(alpha) * sensibilidade);
             sleep_ms(250);
         }
 
