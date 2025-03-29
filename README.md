@@ -71,9 +71,11 @@ decibelimetro-simples/
 
 ## Dificuldades Encontradas
 
-- Ajuste fino da suavização (`smoothed_mag`) para equilibrar sensibilidade e estabilidade
-- Implementação do controle por botões com detecção de cliques curtos e longos
-- Adaptação da lógica da matriz de LEDs para funcionar verticalmente (por colunas), em vez de horizontalmente
+- Controle da Sensibilidade: Decidir como controlar a intensidade do microfone.
+
+- Controle da Matriz: Modificar o funcionamento da matriz, para que ela acenda verticalmente e não horizontalmente.
+
+- Testes: Encontrar uma forma de testar de forma correta o funcionamento, visto que por se tratar de um microfone, é necessário um ambiente silencioso e sons constantes em volume, para constatar o devido funcionamento da sensibilidade
 
 
 
